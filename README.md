@@ -1,6 +1,14 @@
 # Tic-Tac-Toe-Advanced
 Terminal based game for advanced version of tic-tac-toe game
 
+Rules:
+1. Each player has pieces from priority 1 to 5
+2. Player cannot use the same priority he used before
+3. Player cannot override opponent piece with p1_priority <= p2_priority
+4. Player can override opponent piece by using a larger priority piece
+5. Player can override his own piece
+6. First one to score a triplet (row/column/diagonal) wins the game
+
 Steps: 
 1. Run the game
 2. Player1 will start with the 1st move
