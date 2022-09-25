@@ -2,7 +2,7 @@
 Terminal based game for advanced version of tic-tac-toe game
 
 Rules:
-1. Each player has pieces from priority 1 to 5
+1. Each player has 2 pieces each from priority 1 to 3 i.e {1,1,2,2,3,3}
 2. Player cannot use the same priority he used before
 3. Player cannot override opponent piece with p1_priority <= p2_priority
 4. Player can override opponent piece by using a larger priority piece

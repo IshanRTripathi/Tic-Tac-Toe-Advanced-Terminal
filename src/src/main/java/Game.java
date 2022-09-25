@@ -1,17 +1,19 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
 public class Game {
     static final String PLAYER_1 = "Player1";
-    static final int MAX_PRIORITY = 5;
+    static final int MAX_PRIORITY = 3;
     static final String PLAYER_2 = "Player2";
-    static Map<Integer, Set<Integer>> usedPriorityMap = new HashMap<>(){{
-        put(1, new HashSet<>());
-        put(2, new HashSet<>());
+    static Map<Integer, ArrayList<Integer>> usedPriorityMap = new HashMap<>(){{
+        put(1, new ArrayList<>(List.of(1,1,2,2,3,3)));
+        put(2, new ArrayList<>(List.of(1,1,2,2,3,3)));
     }};
     static String[][] board = new String[3][3];
     static final Map<Integer, Integer[]> gridMap = new HashMap<>(){{
@@ -33,9 +35,9 @@ public class Game {
         System.out.println("Welcome to the game!\nPlayer 1's turn");
         int currentPlayer = 1;
         while (true) {
+            System.out.println("Available pieces: "+ usedPriorityMap.get(currentPlayer));
             int grid = sc.nextInt();
             int priority = sc.nextInt();
-
             CellStatus currentCellStatus = statusMap.getOrDefault(grid, new CellStatus(-1, -1, -1));
 
             if (validateAndUpdate(currentPlayer, currentCellStatus, grid, priority)) {
@@ -78,7 +80,7 @@ public class Game {
         // rows
         for(int i=0; i<board.length; i++) {
             if(board[i][0].contains(player) && board[i][1].contains(player) && board[i][2].contains(player)){
-                System.out.println("Row "+i+" matched for "+ player);
+                System.out.println("Row "+(i+1)+" matched for "+ player);
                 System.out.println(player+" wins!");
                 return true;
             }
@@ -86,7 +88,7 @@ public class Game {
         // columns
         for(int i=0; i<board[0].length; i++) {
             if(board[0][i].contains(player) && board[1][i].contains(player) && board[2][i].contains(player)){
-                System.out.println("Column "+i+" matched for "+ player);
+                System.out.println("Column "+(i+1)+" matched for "+ player);
                 System.out.println(player+" wins!");
                 return true;
             }
@@ -102,9 +104,10 @@ public class Game {
 
         if (grid > 0 && grid <= 9 &&
             priority <= MAX_PRIORITY && priority > 0 &&
-            !usedPriorityMap.get(currentPlayer).contains(priority) && currentCellStatus.priority < priority) {
+            usedPriorityMap.get(currentPlayer).contains(priority) &&
+            currentCellStatus.priority < priority) {
 
-            usedPriorityMap.get(currentPlayer).add(priority);
+            usedPriorityMap.get(currentPlayer).remove(priority);
             currentCellStatus.priority = priority;
             currentCellStatus.player = currentPlayer;
 
