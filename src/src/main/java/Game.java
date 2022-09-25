@@ -97,15 +97,12 @@ public class Game {
     private static boolean validateAndUpdate(int currentPlayer, CellStatus currentCellStatus, int grid, int priority) {
         // Validations:
         // grid input is in bounds
-        // current player cannot put priority on his own block
         // current player cannot use the same priority he used before
         // input priority should be greater than current cell's priority
 
         if (grid > 0 && grid <= 9 &&
             priority <= MAX_PRIORITY && priority > 0 &&
-//            currentCellStatus.player != currentPlayer &&
-            !usedPriorityMap.get(currentPlayer).contains(priority) &&
-            currentCellStatus.priority < priority) {
+            !usedPriorityMap.get(currentPlayer).contains(priority) && currentCellStatus.priority < priority) {
 
             usedPriorityMap.get(currentPlayer).add(priority);
             currentCellStatus.priority = priority;
